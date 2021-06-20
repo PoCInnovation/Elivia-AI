@@ -1,0 +1,641 @@
+{
+  "settings": {
+    "languages": [
+      "fr"
+    ],
+    "forceNER": true,
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "fr"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "fr": {
+        "settings": {
+          "locale": "fr",
+          "trainByDomain": false,
+          "tag": "domain-manager-fr",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "allez,bonjour,comment,vous": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "salut": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "content,de,rencontr,vous": {
+            "intent": "greeting.hello",
+            "domain": "default"
+          },
+          "nous,plus,tard,voyon": {
+            "intent": "greeting.bye",
+            "domain": "default"
+          },
+          "aurevoir": {
+            "intent": "greeting.bye",
+            "domain": "default"
+          },
+          "a,bientot": {
+            "intent": "greeting.bye",
+            "domain": "default"
+          },
+          "fait-il,quel,temp": {
+            "intent": "action.meteo",
+            "domain": "default"
+          },
+          "demain,pleut-il": {
+            "intent": "action.meteo",
+            "domain": "default"
+          },
+          "demain,fer,il,quel,temp": {
+            "intent": "action.meteo",
+            "domain": "default"
+          },
+          "ajout,demain,pour,rappel,un": {
+            "intent": "action.rappel",
+            "domain": "default"
+          },
+          "appel,d,demain,mam,moi,rappel": {
+            "intent": "action.rappel",
+            "domain": "default"
+          },
+          "5,dan,met,min,pour,rappel,un": {
+            "intent": "action.rappel",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greeting.hello": "default",
+          "greeting.bye": "default",
+          "action.meteo": "default",
+          "action.rappel": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "Bonjour, comment allez vous",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Salut",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "content de vous rencontrez",
+            "intent": "greeting.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Nous nous voyons plus tard",
+            "intent": "greeting.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "aurevoir",
+            "intent": "greeting.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "a bientot",
+            "intent": "greeting.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "quel temps fait-il ?",
+            "intent": "action.meteo"
+          },
+          {
+            "domain": "default",
+            "utterance": "pleut-il demain",
+            "intent": "action.meteo"
+          },
+          {
+            "domain": "default",
+            "utterance": "quel temps il fera demain",
+            "intent": "action.meteo"
+          },
+          {
+            "domain": "default",
+            "utterance": "ajout un rappel pour demain",
+            "intent": "action.rappel"
+          },
+          {
+            "domain": "default",
+            "utterance": "rappele moi d'appeler mami demain",
+            "intent": "action.rappel"
+          },
+          {
+            "domain": "default",
+            "utterance": "met un rappel pour dans 5 min",
+            "intent": "action.rappel"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "fr",
+              "tag": "nlu-fr",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "5": 1,
+              "bonjour": 1,
+              "comment": 1,
+              "allez": 1,
+              "vous": 1,
+              "salut": 1,
+              "content": 1,
+              "de": 1,
+              "rencontr": 1,
+              "nous": 1,
+              "voyon": 1,
+              "plus": 1,
+              "tard": 1,
+              "aurevoir": 1,
+              "a": 1,
+              "bientot": 1,
+              "quel": 1,
+              "temp": 1,
+              "fait-il": 1,
+              "pleut-il": 1,
+              "demain": 1,
+              "il": 1,
+              "fer": 1,
+              "ajout": 1,
+              "un": 1,
+              "rappel": 1,
+              "pour": 1,
+              "moi": 1,
+              "d": 1,
+              "appel": 1,
+              "mam": 1,
+              "met": 1,
+              "dan": 1,
+              "min": 1
+            },
+            "intents": {
+              "greeting.hello": 1,
+              "greeting.bye": 1,
+              "action.meteo": 1,
+              "action.rappel": 1
+            },
+            "intentFeatures": {
+              "greeting.hello": {
+                "bonjour": 1,
+                "comment": 1,
+                "allez": 1,
+                "vous": 1,
+                "salut": 1,
+                "content": 1,
+                "de": 1,
+                "rencontr": 1
+              },
+              "greeting.bye": {
+                "nous": 1,
+                "voyon": 1,
+                "plus": 1,
+                "tard": 1,
+                "aurevoir": 1,
+                "a": 1,
+                "bientot": 1
+              },
+              "action.meteo": {
+                "quel": 1,
+                "temp": 1,
+                "fait-il": 1,
+                "pleut-il": 1,
+                "demain": 1,
+                "il": 1,
+                "fer": 1
+              },
+              "action.rappel": {
+                "5": 1,
+                "ajout": 1,
+                "un": 1,
+                "rappel": 1,
+                "pour": 1,
+                "demain": 1,
+                "moi": 1,
+                "d": 1,
+                "appel": 1,
+                "mam": 1,
+                "met": 1,
+                "dan": 1,
+                "min": 1
+              }
+            },
+            "featuresToIntent": {
+              "5": [
+                "action.rappel"
+              ],
+              "bonjour": [
+                "greeting.hello"
+              ],
+              "comment": [
+                "greeting.hello"
+              ],
+              "allez": [
+                "greeting.hello"
+              ],
+              "vous": [
+                "greeting.hello"
+              ],
+              "salut": [
+                "greeting.hello"
+              ],
+              "content": [
+                "greeting.hello"
+              ],
+              "de": [
+                "greeting.hello"
+              ],
+              "rencontr": [
+                "greeting.hello"
+              ],
+              "nous": [
+                "greeting.bye"
+              ],
+              "voyon": [
+                "greeting.bye"
+              ],
+              "plus": [
+                "greeting.bye"
+              ],
+              "tard": [
+                "greeting.bye"
+              ],
+              "aurevoir": [
+                "greeting.bye"
+              ],
+              "a": [
+                "greeting.bye"
+              ],
+              "bientot": [
+                "greeting.bye"
+              ],
+              "quel": [
+                "action.meteo"
+              ],
+              "temp": [
+                "action.meteo"
+              ],
+              "fait-il": [
+                "action.meteo"
+              ],
+              "pleut-il": [
+                "action.meteo"
+              ],
+              "demain": [
+                "action.meteo",
+                "action.rappel"
+              ],
+              "il": [
+                "action.meteo"
+              ],
+              "fer": [
+                "action.meteo"
+              ],
+              "ajout": [
+                "action.rappel"
+              ],
+              "un": [
+                "action.rappel"
+              ],
+              "rappel": [
+                "action.rappel"
+              ],
+              "pour": [
+                "action.rappel"
+              ],
+              "moi": [
+                "action.rappel"
+              ],
+              "d": [
+                "action.rappel"
+              ],
+              "appel": [
+                "action.rappel"
+              ],
+              "mam": [
+                "action.rappel"
+              ],
+              "met": [
+                "action.rappel"
+              ],
+              "dan": [
+                "action.rappel"
+              ],
+              "min": [
+                "action.rappel"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "fr",
+                "tag": "nlu-fr",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "bonjour",
+                "comment",
+                "allez",
+                "vous",
+                "salut",
+                "content",
+                "de",
+                "rencontr",
+                "nous",
+                "voyon",
+                "plus",
+                "tard",
+                "aurevoir",
+                "a",
+                "bientot",
+                "quel",
+                "temp",
+                "fait-il",
+                "pleut-il",
+                "demain",
+                "il",
+                "fer",
+                "ajout",
+                "un",
+                "rappel",
+                "pour",
+                "moi",
+                "d",
+                "appel",
+                "mam",
+                "5",
+                "met",
+                "dan",
+                "min"
+              ],
+              "intents": [
+                "greeting.hello",
+                "greeting.bye",
+                "action.meteo",
+                "action.rappel"
+              ],
+              "perceptrons": [
+                [
+                  2.213540554046631,
+                  2.213540554046631,
+                  2.213540554046631,
+                  4.4194746017456055,
+                  10.702310562133789,
+                  2.206651449203491,
+                  2.206651449203491,
+                  2.206651449203491,
+                  -0.8110476732254028,
+                  -0.8110476732254028,
+                  -0.8110476732254028,
+                  -0.8110476732254028,
+                  -3.0369985103607178,
+                  -1.6073309183120728,
+                  -1.6073309183120728,
+                  -1.1445552110671997,
+                  -1.1445552110671997,
+                  -0.9380388855934143,
+                  -1.2818394899368286,
+                  -1.9289323091506958,
+                  -0.15219537913799286,
+                  -0.15219537913799286,
+                  -0.18381504714488983,
+                  -0.5524479150772095,
+                  -0.7780995965003967,
+                  -0.5524479150772095,
+                  -0.2018442153930664,
+                  -0.2018442153930664,
+                  -0.2018442153930664,
+                  -0.2018442153930664,
+                  -0.33752304315567017,
+                  -0.33752304315567017,
+                  -0.33752304315567017,
+                  -0.33752304315567017,
+                  3.234369906689938
+                ],
+                [
+                  -0.8139451146125793,
+                  -0.8139451146125793,
+                  -0.8139451146125793,
+                  -1.6224979162216187,
+                  -3.7887444496154785,
+                  -0.8082783222198486,
+                  -0.8082783222198486,
+                  -0.8082783222198486,
+                  2.559621810913086,
+                  2.559621810913086,
+                  2.559621810913086,
+                  2.559621810913086,
+                  9.914292335510254,
+                  5.112978458404541,
+                  5.112978458404541,
+                  -1.444003701210022,
+                  -1.444003701210022,
+                  -1.1750988960266113,
+                  -1.602611780166626,
+                  -2.4541893005371094,
+                  -0.22667038440704346,
+                  -0.22667038440704346,
+                  -0.22976054251194,
+                  -0.6934683918952942,
+                  -1.0016224384307861,
+                  -0.6934683918952942,
+                  -0.28543636202812195,
+                  -0.28543636202812195,
+                  -0.28543636202812195,
+                  -0.28543636202812195,
+                  -0.41894957423210144,
+                  -0.41894957423210144,
+                  -0.41894957423210144,
+                  -0.41894957423210144,
+                  4.06459046921203
+                ],
+                [
+                  -0.36559292674064636,
+                  -0.36559292674064636,
+                  -0.36559292674064636,
+                  -0.7522927522659302,
+                  -1.7208476066589355,
+                  -0.35609662532806396,
+                  -0.35609662532806396,
+                  -0.35609662532806396,
+                  -0.45686501264572144,
+                  -0.45686501264572144,
+                  -0.45686501264572144,
+                  -0.45686501264572144,
+                  -1.7053314447402954,
+                  -0.8955599665641785,
+                  -0.8955599665641785,
+                  4.067439556121826,
+                  4.067439556121826,
+                  4.29823637008667,
+                  7.518772602081299,
+                  4.868716239929199,
+                  -0.23362955451011658,
+                  -0.23362955451011658,
+                  -1.3727736473083496,
+                  -1.4113991260528564,
+                  -2.461216926574707,
+                  -1.4113991260528564,
+                  -1.049120306968689,
+                  -1.049120306968689,
+                  -1.049120306968689,
+                  -1.049120306968689,
+                  -0.01931271329522133,
+                  -0.01931271329522133,
+                  -0.01931271329522133,
+                  -0.01931271329522133,
+                  1.79108241222213
+                ],
+                [
+                  -0.19771738350391388,
+                  -0.19771738350391388,
+                  -0.19771738350391388,
+                  -0.4337801933288574,
+                  -0.3906482458114624,
+                  -0.17084918916225433,
+                  -0.17084918916225433,
+                  -0.17084918916225433,
+                  -0.22447673976421356,
+                  -0.22447673976421356,
+                  -0.22447673976421356,
+                  -0.22447673976421356,
+                  -0.3714885711669922,
+                  -0.2727763056755066,
+                  -0.2727763056755066,
+                  -0.7137323021888733,
+                  -0.7137323021888733,
+                  -0.14159348607063293,
+                  -1.7644156217575073,
+                  1.5627459287643433,
+                  -0.5238252878189087,
+                  -0.5238252878189087,
+                  1.978919506072998,
+                  2.8660471439361572,
+                  4.79486608505249,
+                  2.8660471439361572,
+                  1.9286348819732666,
+                  1.9286348819732666,
+                  1.9286348819732666,
+                  1.9286348819732666,
+                  0.8867961168289185,
+                  0.8867961168289185,
+                  0.8867961168289185,
+                  0.8867961168289185,
+                  0.21293917476261615
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "fr",
+        "Bonjour, comment allez vous"
+      ],
+      [
+        "fr",
+        "Salut"
+      ],
+      [
+        "fr",
+        "content de vous rencontrez"
+      ],
+      [
+        "fr",
+        "Nous nous voyons plus tard"
+      ],
+      [
+        "fr",
+        "aurevoir"
+      ],
+      [
+        "fr",
+        "a bientot"
+      ],
+      [
+        "fr",
+        "quel temps fait-il ?"
+      ],
+      [
+        "fr",
+        "pleut-il demain"
+      ],
+      [
+        "fr",
+        "quel temps il fera demain"
+      ],
+      [
+        "fr",
+        "ajout un rappel pour demain"
+      ],
+      [
+        "fr",
+        "rappele moi d'appeler mami demain"
+      ],
+      [
+        "fr",
+        "met un rappel pour dans 5 min"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {}
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}
