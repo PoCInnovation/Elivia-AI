@@ -4,22 +4,39 @@ import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
 import android.util.Log
+import java.lang.Exception
 
 class ContactsService(val context: Context) {
 
     var crContacts: Cursor? = null
     val TAG = "Elivia"
 
-    public fun readContacts(contactName: String) {
+    public fun readContacts(contactName: String) : String? {
         var id: String
         var name: String
         var photoUri: String
         var order = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
         var cr = context.contentResolver
-        crContacts = context.contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + "= ?", arrayOf(contactName), order)
+        var tmp = cr.query(ContactsContract.Contacts.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + "= ?", arrayOf(contactName), null)
+        if (tmp == null)
+            return null;
+        tmp.moveToFirst();
+        return tmp.getString(tmp.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+        while (tmp.moveToNext()) {
+            tmp.columnNames.iterator().forEach {
+                println(it + " " + tmp.getColumnIndex(it));
+            }
+            println(tmp.getString(tmp.getColumnIndex("display_name")));
+        }
+        /*try {
+            crContacts = context.contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + "= ?", arrayOf(contactName), order)
+        } catch (e: RuntimeException) {
+            println("error on query $e");
+        }*/
+        /*println(crContacts);
         if (crContacts != null) {
             println(crContacts!!.getString(crContacts!!.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)))
-        }
+        }*/
 // dans config name spacy LOCATION => LOC
         /*if (crContacts == null)
             return
@@ -40,6 +57,6 @@ class ContactsService(val context: Context) {
                 crPhones!!.close()
             }
         }*/
-        crContacts!!.close()
+        //crContacts!!.close()
     }
 }
