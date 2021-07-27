@@ -7,7 +7,7 @@ Take control of your smartphone with your voice. Like Google Assistant, Alexa or
 It can help you to do your everyday task.
 It is private by default and completely customizable.
 
-<img src="https://user-images.githubusercontent.com/34518035/127216535-1226ba3d-6891-4159-9d5a-cff1e9d07c28.png" width="25">
+<img src="https://user-images.githubusercontent.com/34518035/127216535-1226ba3d-6891-4159-9d5a-cff1e9d07c28.png" width="25%">
 
 
 ### How it's work ?
