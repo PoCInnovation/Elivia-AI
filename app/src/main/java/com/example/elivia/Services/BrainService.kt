@@ -26,6 +26,10 @@ import kotlin.collections.ArrayList
 
 class BrainService(val context: Context) {
     private val messages: ArrayList<Messages> = ArrayList()
+    val contactService: ContactsService;
+    init {
+        contactService = ContactsService(context);
+    }
     fun takeAction(message: Messages, adapter: MessageAdapter){
         messages.add(message);
         val call = ChatService.create().postMessage(message)
@@ -49,7 +53,8 @@ class BrainService(val context: Context) {
         println(response);
         println(response.body());
         when (response.body()?.intent?.name) {
-            "bonjour" -> return Messages("other", "hello", Calendar.getInstance().timeInMillis, "000000");
+            "hello" -> return Messages("other", "hello", Calendar.getInstance().timeInMillis, "000000");
+            "call" -> return makeACall(response.body()!!);
         }
         return Messages("other", "Pas de souci !", Calendar.getInstance().timeInMillis, "000000");
         /*return if (message.text == "ouvre le calendrier") {
@@ -61,7 +66,7 @@ class BrainService(val context: Context) {
         }*/
     }
 
-    private fun openCalendar() : Messages{
+    private fun openCalendar(responce: RasaResponse) : Messages{
         val pm: PackageManager = context.getPackageManager()
 
         try {
@@ -73,9 +78,9 @@ class BrainService(val context: Context) {
         return (Messages("other", "Le calendrier est ouvert", Calendar.getInstance().timeInMillis, ""))
     }
 
-    private fun makeACall(str: String) : Messages {
+    private fun makeACall(responce: RasaResponse) : Messages {
 
-        val number: String = "0670068253";
+        val number: String = contactService.readContacts("Elodie") ?: return Messages("other", "La personne n'existe pas", Calendar.getInstance().timeInMillis, "")
         if (number.trim { it <= ' ' }.isNotEmpty()) {
             if (ContextCompat.checkSelfPermission(
                     context,

@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
         initModel()
 
         var tmp = ContactsService(this);
-        tmp.readContacts("Elodie")
+        println("thiiiiis " + tmp.readContacts("Elodie"));
 
 
         findViewById<AppCompatImageButton>(R.id.btnSend).setOnClickListener { view: View ->
