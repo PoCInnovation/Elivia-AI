@@ -19,36 +19,36 @@ With all of this we take action !
 
 | Intent | Server | App | Descritption|
 | :------| :----- | :-- | :-----------|
-| hello | :heavy_check_mark: | :x: | say hello |
-| mood | :heavy_check_mark: | :x: | ask your mood |
-| open | :heavy_check_mark: | :x: | open an application on the phone |
-| search | :heavy_check_mark: | :x: | search somthing on the Web |
-| alarm | :heavy_check_mark: | :x: | set an alarm |
+| hello | :heavy_check_mark: | :heavy_check_mark: | say hello |
+| mood | :heavy_check_mark: | :heavy_check_mark: | ask your mood |
+| open | :heavy_check_mark: | :heavy_check_mark: | open an application on the phone |
+| search | :heavy_check_mark: | :heavy_check_mark: | search somthing on the Web |
+| alarm | :heavy_check_mark: | :heavy_check_mark: | set an alarm |
 | clock | :heavy_check_mark: | :x: | get the time for anywhere |
 | chrono | :heavy_check_mark: | :x: | start a chrono |
 | weather | :heavy_check_mark: | :x: | get the weather for anywhere |
 | plan | :heavy_check_mark: | :x: | start the naviguation map to go anywhere |
 | call | :heavy_check_mark: | :heavy_check_mark: | make a call to one of your contact |
-| message | :heavy_check_mark: | :x: | text a message to one of your contact |
+| message | :heavy_check_mark: | :heavy_check_mark: | text a message to one of your contact |
 | sport | :heavy_check_mark: | :x: | start a sport session |
-| music | :heavy_check_mark: | :x: | start a music |
+| music | :heavy_check_mark: | :heavy_check_mark: | start a music |
 | calculator | :heavy_check_mark: | :x: | make calcul |
-| reminder | :heavy_check_mark: | :x: | add a reminder |
+| reminder | :heavy_check_mark: | :heavy_check_mark: | add a reminder |
 
 ## Installation:
 
 ### Server Side
 
 	git clone https://github.com/PoCInnovation/Elivia-AI.git
-	cd Elivia-AI
-	git switch RASA+Spacy
+	cd Elivia-AI/server
+  source ./venv/bin/activate
+  rasa train
 	rasa run --enable-api
 
 ### Android app
 
 	git clone https://github.com/PoCInnovation/Elivia-AI.git
-	cd Elivia-AI
-	git switch RASA+Spacy
+	cd Elivia-AI/androidApp
 	open the project with android studio
 
 
