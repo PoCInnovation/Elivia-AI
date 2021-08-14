@@ -22,14 +22,24 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
-
+import androidx.core.content.ContextCompat.startActivity
 
 class BrainService(val context: Context) {
     private val messages: ArrayList<Messages> = ArrayList()
-    val contactService: ContactsService;
+    private val alarmService: AlarmService;
+    private val contactService: ContactsService;
+    private val applicationService: ApplicationService;
+    private val smsService: SmsService;
+    private val searchService: SearchService;
+
     init {
+        alarmService = AlarmService(context);
         contactService = ContactsService(context);
+        applicationService = ApplicationService(context);
+        smsService = SmsService(context);
+        searchService = SearchService(context);
     }
+
     fun takeAction(message: Messages, adapter: MessageAdapter){
         messages.add(message);
         val call = ChatService.create().postMessage(message)
@@ -54,33 +64,49 @@ class BrainService(val context: Context) {
         println(response.body());
         when (response.body()?.intent?.name) {
             "hello" -> return Messages("other", "hello", Calendar.getInstance().timeInMillis, "000000");
+            "open" -> return openApp(response.body()!!);
+            "search" -> return makeASearch(response.body()!!)
+            "music" -> return startMusic(response.body()!!);
             "call" -> return makeACall(response.body()!!);
+            "message" -> return sendMessage(response.body()!!);
+            "alarm" -> return setAnAlarme(response.body()!!);
+            "reminder" -> return setAReminder(response.body()!!);
         }
-        return Messages("other", "Pas de souci !", Calendar.getInstance().timeInMillis, "000000");
-        /*return if (message.text == "ouvre le calendrier") {
-            openCalendar()
-        } else if (message.text.contains("appel")) {
-            makeACall(message.text);
-        } else {
-            Messages("other", "Pas de souci !", Calendar.getInstance().timeInMillis, "000000");
-        }*/
+        return Messages("other", "Je n 'ai pas compris", Calendar.getInstance().timeInMillis, "000000");
     }
 
-    private fun openCalendar(responce: RasaResponse) : Messages{
-        val pm: PackageManager = context.getPackageManager()
 
-        try {
-            val it: Intent? = pm.getLaunchIntentForPackage("com.simplemobiletools.calendar")
-            if (null != it) context.startActivity(it)
-        } catch (e: ActivityNotFoundException) {
-            println(e);
+    private fun openApp(responce: RasaResponse) : Messages {
+        val appName = "messaging";
+        val packageName = applicationService.getAppId(appName)
+                ?: return (Messages("other", "L'application $appName n'a pas été trouvé sur votre téléphone", Calendar.getInstance().timeInMillis, ""));
+        if (applicationService.openAppById(packageName))
+            return (Messages("other", "L'application est ouvert", Calendar.getInstance().timeInMillis, ""))
+        else
+            return (Messages("other", "L'application $appName n'a pas pu démarrer", Calendar.getInstance().timeInMillis, ""))
+    }
+
+    private fun sendMessage(responce: RasaResponse) : Messages {
+        val number: String = when (responce.entities.firstOrNull()?.entity) {
+            "number" -> {
+                (responce.entities.first())?.value ?: "sfg";
+            }
+            "person" -> {
+                val person = (responce.entities.first())?.value ?: "sfg";
+                contactService.readContacts(person) ?: return Messages("other", "$person n'existe pas dans vos contacts", Calendar.getInstance().timeInMillis, "");
+            }
+            else -> {
+                return (Messages("other", "Je n'ai pas bien compris", Calendar.getInstance().timeInMillis, ""))
+            }
         }
-        return (Messages("other", "Le calendrier est ouvert", Calendar.getInstance().timeInMillis, ""))
+        // TODO: value hardcoder dans le service
+        smsService.sendMessage(number, "");
+        return (Messages("other", "Le message est envoyé", Calendar.getInstance().timeInMillis, ""))
     }
 
     private fun makeACall(responce: RasaResponse) : Messages {
 
-        val number: String = contactService.readContacts("Elodie") ?: return Messages("other", "La personne n'existe pas", Calendar.getInstance().timeInMillis, "")
+        val number: String = contactService.readContacts("Sacha") ?: return Messages("other", "La personne n'existe pas", Calendar.getInstance().timeInMillis, "")
         if (number.trim { it <= ' ' }.isNotEmpty()) {
             if (ContextCompat.checkSelfPermission(
                     context,
@@ -102,7 +128,39 @@ class BrainService(val context: Context) {
         return (Messages("other", "Appel en cours", Calendar.getInstance().timeInMillis, ""))
     }
 
-    private fun makeASearch(str: String) : Messages {
-        return (Messages("other", "Appel en cours", Calendar.getInstance().timeInMillis, ""))
+    private fun setAnAlarme(responce: RasaResponse) : Messages {
+        // TODO: en fonction des entities
+        val hour = 10;
+        val min = 30;
+        alarmService.createAlarm("", hour, min);
+
+        return (Messages("other", "Une alarme sonnera à $hour h $min", Calendar.getInstance().timeInMillis, ""))
+    }
+
+    private fun setAReminder(responce: RasaResponse) : Messages {
+        // TODO: en fonction des entities
+        val time = 60;
+        //alarmService.startTimer("", time);
+        val cal = Calendar.getInstance()
+        val intent = Intent(Intent.ACTION_EDIT)
+        intent.type = "vnd.android.cursor.item/event"
+        intent.putExtra("beginTime", cal.timeInMillis)
+        intent.putExtra("allDay", true)
+        intent.putExtra("rrule", "FREQ=YEARLY")
+        intent.putExtra("endTime", cal.timeInMillis + 60 * 60 * 1000)
+        intent.putExtra("title", "A Test Event from android app")
+        context.startActivity(intent)
+
+        return (Messages("other", "Le timer sonnera dans $time seconde", Calendar.getInstance().timeInMillis, ""))
+    }
+
+    private fun startMusic(responce: RasaResponse) : Messages {
+        return (Messages("other", "Je n'ai pas trouvé ce morceau de musique", Calendar.getInstance().timeInMillis, ""))
+    }
+
+    private fun makeASearch(responce: RasaResponse) : Messages {
+        searchService.searchWeb(responce.text)
+
+        return (Messages("other", "your result is: ", Calendar.getInstance().timeInMillis, ""))
     }
 }

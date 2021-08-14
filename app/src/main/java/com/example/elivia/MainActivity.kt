@@ -1,10 +1,8 @@
 package com.example.elivia
 
 import android.Manifest
-import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -14,11 +12,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.elivia.Services.ChatService
 import com.example.elivia.Components.Adapter.MessageAdapter
 import com.example.elivia.Models.Messages
+import com.example.elivia.Services.AlarmService
 import com.example.elivia.Services.BrainService
-import com.example.elivia.Services.ContactsService
+import com.example.elivia.Services.SmsService
 import com.example.elivia.databinding.ActivityMainBinding
 import org.json.JSONException
 import org.json.JSONObject
@@ -28,9 +26,6 @@ import org.vosk.android.RecognitionListener
 import org.vosk.android.SpeechService
 import org.vosk.android.SpeechStreamService
 import org.vosk.android.StorageService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.IOException
 import java.util.*
 
@@ -76,17 +71,31 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
 
 
         // Check if user has given permission to record audio, init the model after permission is granted
-        val permissionCheck = arrayOf(ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.RECORD_AUDIO), ContextCompat.checkSelfPermission( applicationContext, Manifest.permission.CALL_PHONE ), ContextCompat.checkSelfPermission( applicationContext, Manifest.permission.READ_CONTACTS ), ContextCompat.checkSelfPermission( applicationContext, Manifest.permission.WRITE_CONTACTS ));
+        val permissionCheck = arrayOf(
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.RECORD_AUDIO),
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CALL_PHONE),
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.SEND_SMS),
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_CONTACTS),
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.WRITE_CONTACTS)
+        );
         println("permission $permissionCheck");
-        if (!permissionCheck.all { x -> x == PackageManager.PERMISSION_GRANTED}) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.CALL_PHONE, Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE, Manifest.permission.WRITE_CONTACTS), PERMISSIONS_REQUEST_RECORD_AUDIO)
+        if (!permissionCheck.all { x -> x == PackageManager.PERMISSION_GRANTED }) {
+            ActivityCompat.requestPermissions(this, arrayOf(
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.READ_CONTACTS,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.SEND_SMS,
+                    Manifest.permission.WRITE_CONTACTS), PERMISSIONS_REQUEST_RECORD_AUDIO)
         }
+
+
+        /*var tmp = AlarmService(this);
+        println(tmp.createAlarm("test", 11, 58));*/
+
+
         println("init model");
         initModel()
-
-        var tmp = ContactsService(this);
-        println("thiiiiis " + tmp.readContacts("Elodie"));
-
 
         findViewById<AppCompatImageButton>(R.id.btnSend).setOnClickListener { view: View ->
             onSendMessage(view);
@@ -131,9 +140,11 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
     private fun setUiState(state: Int) {
         println(state);
     }
+
     private fun setErrorState(state: String) {
         println("error" + state);
     }
+
     private fun resetInput(messageBox: TextView) {
         messageBox.text = "";
     }
@@ -155,10 +166,9 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
         return null;
     }
 
-    private fun onSendMessage(view: View)
-    {
+    private fun onSendMessage(view: View) {
         val messageBox = findViewById<TextView>(R.id.txtMessage);
-        if(messageBox.text.isNotEmpty()) {
+        if (messageBox.text.isNotEmpty()) {
             val message = sendMessage(messageBox.text.toString()) ?: return;
             resetInput(messageBox)
         } else {
@@ -198,7 +208,7 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
             resultView!!.text = obj.getString("text");
             println(obj.getString("text"));
             sendMessage(obj.getString("text"));
-        } catch (e : JSONException) {
+        } catch (e: JSONException) {
             println(e);
         }
         setUiState(STATE_DONE)
@@ -216,7 +226,7 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
             resultView!!.text = obj.getString("text");
             println(obj.getString("text"));
             sendMessage(obj.getString("text"));
-        } catch (e : JSONException) {
+        } catch (e: JSONException) {
             println(e);
         }
         setUiState(STATE_DONE)
@@ -231,7 +241,7 @@ class MainActivity : AppCompatActivity(), RecognitionListener {
         val obj = JSONObject(hypothesis);
         try {
             resultView!!.text = obj.getString("partial");
-        } catch (e : JSONException) {
+        } catch (e: JSONException) {
             println(e);
         }
     }

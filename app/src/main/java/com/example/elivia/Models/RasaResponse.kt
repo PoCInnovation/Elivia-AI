@@ -1,13 +1,14 @@
 package com.example.elivia.Models
 
-import com.beust.klaxon.*
+import com.beust.klaxon.Json
+import com.beust.klaxon.Klaxon
 
 private val klaxon = Klaxon()
 
-data class RasaResponse (
+data class RasaResponse(
         val text: String,
         val intent: Intent,
-        val entities: List<Any?>,
+        val entities: List<Entity?>,
 
         @Json(name = "intent_ranking")
         val intentRanking: List<Intent>,
@@ -22,25 +23,36 @@ data class RasaResponse (
     }
 }
 
-data class Intent (
+data class Intent(
         val id: Long,
         val name: String,
         val confidence: Double
 )
 
-data class ResponseSelector (
+data class ResponseSelector(
         @Json(name = "all_retrieval_intents")
         val allRetrievalIntents: List<Any?>,
 
         val default: Default
 )
 
-data class Default (
+data class Default(
         val response: Response,
         val ranking: List<Any?>
 )
 
-data class Response (
+data class Entity(
+        val entity: String,
+        val start: Int,
+        val end: Int,
+        @Json(name = "confidence_entity")
+        val confidenceEntity: Float,
+
+        val value: String,
+        val extractor: String
+)
+
+data class Response(
         val id: Any? = null,
         val responses: Any? = null,
 
