@@ -51,6 +51,12 @@ With all of this we take action !
 	cd Elivia-AI/androidApp
 	open the project with android studio
 
+### RASA shell
+	
+	cd Elivia-AI/RASA_assistant/actions
+	rasa run actions		(Starts an action server using the Rasa SDK.)
+	cd ../
+	rasa shell 			(Loads your trained model and lets you talk to your assistant on the command line.)
 
 
 ## Contributors
