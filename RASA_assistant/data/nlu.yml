@@ -1,0 +1,130 @@
+version: "2.0"
+
+nlu:
+- intent: hello
+  examples: |
+    - hey
+    - salut
+    - hi
+    - coucou
+    - bonjour
+    - bonsoir
+    - yo
+    - comment ça va
+- intent: mood
+  examples: |
+    - je vais bien et toi ?
+    - ça va bien
+    - tout vas bien
+    - je suis triste
+    - je me sens mal
+    - pas au top
+    - déprimé
+- intent: bye
+  examples: |
+    - bye
+    - aurevoir
+    - à plus
+    - bonne nuit
+    - à demain
+    - passe une bonne journée
+    - adieux
+- intent: open
+  examples: |
+    - ouvre [YouTube]{"entity":"name","value":"YouTube"}
+    - ouvre [contacts]{"entity":"name","value":"contacts"}
+    - ouvre [messages]{"entity":"name","value":"messages"}
+    - ouvre [horloge]{"entity":"name","value":"horloge"}
+    - lance [météo]{"entity":"name","value":"météo"}
+    - lance [Instagram]{"entity":"name","value":"météo"}
+    - lance [Google]{"entity":"name","value":"Google"}
+    - lance [réglages]{"entity":"name","value":"météo"}
+- intent: weather
+  examples: |
+    - quel temps fait il a [Berlin]{"entity":"name","value":"Berlin"}
+    - quel temps fait il a [Nice]{"entity":"name","value":"Nice"}
+    - quel temps fait il a [Rome]{"entity":"name","value":"Rome"}
+    - quel temps fait il a [Moscou]{"entity":"name","value":"Moscou"}
+    - quelle est la météo de [Paris]{"entity":"name","value":"Paris"}
+    - quelle est la météo de [Londres]{"entity":"name","value":"Londres"}
+    - quelle est la météo de [Dublin]{"entity":"name","value":"Dublin"}
+    - quelle est la météo de [Prague]{"entity":"name","value":"Prague"}
+    - est-ce qu'il pleut
+    - est-ce qu'il pleut dehors
+    - pleut il
+    - pleut il dehors
+    - il fait beau
+    - il fait beau dehors
+    - fait-il beau
+    - fait-il beau dehors
+    - quel temps fait il dehors
+- intent: call
+  examples: |
+    - appelle [Valerie]{"entity":"name","value":"Valerie"}
+    - appelle [Thomas]{"entity":"name","value":"Thomas"}
+    - appelle [Soufiane]{"entity":"name","value":"Soufiane"}
+    - apelle [Nicolas Martin]{"entity":"name","value":"Nicolas Martin"}
+    - apelle [Francois Lore]{"entity":"name","value":"Francois Lore"}
+    - passe un coup de fil à [Jean]{"entity":"name","value":"Jean"}
+    - passe un coup de fil à [Marc]{"entity":"name","value":"Marc"}
+    - passe un coup de fil à [Thibault]{"entity":"name","value":"Thibault"}
+    - passe un coup de fil à [Nathan Dupres]{"entity":"name","value":"Nathan Dupres"}
+    - passe un coup de fil à [Romain Blanc]{"entity":"name","value":"Romain Blanc"}
+    - appelle le [0645179283]{"entity":"number","value":"0645179283"}
+    - appelle le [07 51 49 56 11]{"entity":"number","value":"07 51 49 56 11"}
+    - apelle le [+33 6 45 17 92 83]{"entity":"number","value":"+33 6 45 17 92 83"}
+    - apelle le [+33751495611]{"entity":"number","value":"+33751495611"}
+    - passe un coup de fil au [0751495611]{"entity":"number","value":"0751495611"}
+    - passe un coup de fil au [06 45 17 92 83]{"entity":"number","value":"06 45 17 92 83"}
+    - passe un coup de fil au [+33 7 51 49 56 11]{"entity":"number","value":"+33 7 51 49 56 11"}
+    - appelle le [+33645179283]{"entity":"number","value":"+33645179283"}
+- intent: search
+  examples: |
+    - que veut dire
+    - recherche
+    - que signifie
+    - trouve la définition
+    - quelle est la définition
+- intent: alarm
+  examples: |
+    - créé une alarme
+    - définir une alarme
+    - nouvelle alarme
+- intent: plan
+  examples: |
+    - où suis je
+    - comment se rendre à [Marseille]{"entity": "name"}
+    - comment aller à [Londres]{"entity": "name"}
+    - itineraire jusque [Singapour]{"entity": "name"}
+    - rentrer chez moi
+    - aller à [Dubai]{"entity": "name"}
+- intent: message
+  examples: |
+    - envoie un message à [Matéo]{"entity": "name"}
+    - envoie un message à [Thomas]{"entity": "name"}
+    - envoie comment tu vas à [Tom]{"entity": "name"}
+    - envoie je te rejoins bientot à [Remy]{"entity": "name"}
+- intent: sport
+  examples: |
+    - fitness
+    - lance mon parcours de sport
+    - commence une séssion de sport
+- intent: musique
+  examples: |
+    - lance [Back in Black]{"entity": "name"} du groupe [ACDC]{"entity": "name"}
+    - joue ma playlist [Chill]{"entity": "name"}
+    - joue une playlist aléatoire
+    - lance un morceau des [Blues Brothers]{"entity": "name"}
+
+- intent: name
+  examples: |
+    - [Valerie]{"entity":"name","value":"Valerie"}
+    - [Tom]{"entity":"name","value":"Tom"}
+    - [Lise]{"entity":"name","value":"Lise"}
+    - [Romain]{"entity":"name","value":"Romain"}
+    - [Titouan Toutseul]{"entity":"name","value":"Titouan Toutseul"}
+    - [Francois Despres]{"entity":"name","value":"Francois Despres"}
+    - [Luc Skywalker]{"entity":"name","value":"Luc Skywalker"}
+    - [Jean-Jack]{"entity":"name","value":"Jean-Jack"}
+    - [Anne - Lore]{"entity":"name","value":"Anne - Lore"}
+

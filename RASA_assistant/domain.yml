@@ -1,0 +1,112 @@
+version: "2.0"
+
+intents:
+  - hello
+  - mood
+  - bye
+  - open:
+      use_entities:
+        - name
+  - weather:
+      use_entities:
+        - name
+  - call:
+      use_entities:
+        - name
+        - number
+  - search
+  - alarm
+  - clock
+  - timer
+  - chrono
+  - plan
+  - message:
+      use_entities:
+        -name
+        -number
+  - sport
+  - music:
+      use_entities:
+        -name
+  - note
+  - calculator
+  - name
+
+entities:
+  - name
+  - number
+
+slots:
+  name:
+    type: text
+    auto_fill: true
+    value_reset_delay: 1
+  number:
+    type: text
+    auto_fill: true
+    value_reset_delay: 1
+
+actions:
+  - action_get_weather
+
+responses:
+  utter_affirm:
+    - text: "Très bien"
+  utter_hello:
+    - text: "Hey! Comment aller vous?"
+  utter_help:
+    - text: "Comment puis-je vous aider ?"
+  utter_bye:
+    - text: "Bonne journée"
+  utter_open:
+    - text: "Trés bien, j'ouvre {name}"
+  utter_search:
+    - text: "Voici les résultats de votre recherche"
+  utter_what_weather:
+    - text: "De quelle ville souhaitez vous connaitre la météo"
+  utter_city_weather:
+    - text: "La temperature de {city} est de {temp} degrés Celcius."
+  utter_call_person:
+    - text: "J'appelle {name}"
+  utter_who_should_call:
+    - text: "Qui souhaitez vous appeller ?"
+  utter_call:
+    - buttons:
+      - payload: /utter_call_person
+        title: Oui
+      - payload: /utter_affirm
+        title: Non
+      text: "Voulez vous appeller {name}"
+  utter_alarm:
+    - text: "Ouvrir alarme"
+  utter_clock:
+    - text: "Ouvrir clock"
+  utter_timer:
+    - text: "Ouvrir timer"
+  utter_chrono:
+    - text: "Ouvrir chrono"
+  utter_plan:
+    - text: "Ouvrir plan"
+  utter_who_should_message:
+    - text: "A qui souhaitez vous envoyer un message ?"
+  utter_message:
+    - text: "Envoyer message"
+  utter_music:
+    - text: "Ouvrir musique"
+  utter_sport:
+    - text: "Le sport n'est pas encore pris en charge"
+  utter_note:
+    - text: "Ouvrir note"
+  utter_calculator:
+    - text: "Ouvrir calculator"
+  utter_reminder:
+    - text: "Ouvrir reminder"
+  utter_nlu_fallback:
+    - text: "Desolé, je ne comprends pas"
+  utter_default:
+    - text: "Desolé, je n'ai pas compris, pourriez vous répéter ?"
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
