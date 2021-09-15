@@ -1,0 +1,51 @@
+version: "2.0"
+
+stories:
+
+- story: appel sans nom
+  steps:
+  - intent: call
+  - slot_was_set:
+    - name: null
+  - action: utter_who_should_call
+  - intent: name
+  - action: utter_call
+
+- story: appel avec nom
+  steps:
+  - intent: call
+  - slot_was_set:
+    - name
+  - action: utter_call
+
+- story: donner la meteo sans lieux
+  steps:
+  - intent: weather
+  - slot_was_set:
+    - name: null
+  - action: utter_what_weather
+  - intent: name
+  - action: action_get_weather
+
+- story: donner la meteo avec lieux
+  steps:
+  - intent: weather
+  - slot_was_set:
+    - name
+  - action: action_get_weather
+
+- story: envoyer un message sans nom
+  steps:
+  - intent: message
+  - slot_was_set:
+    - name: null
+  - action: utter_who_should_message
+  - intent: name
+  - action: utter_message
+
+- story: envoyer un message avec nom
+  steps:
+  - intent: message
+  - slot_was_set:
+    - name
+  - action: utter_message

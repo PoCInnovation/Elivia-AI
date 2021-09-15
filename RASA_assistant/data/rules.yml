@@ -1,0 +1,51 @@
+version: "2.0"
+
+rules:
+- rule: dire bonjour a l'utilisateur
+  steps:
+  - intent: hello
+  - action: utter_hello
+- rule: répondre a l'humeur de l'utilisateur
+  steps:
+  - intent: mood
+  - action: utter_help
+- rule: répondre aurevoir quand l'utilisateur quite
+  steps:
+  - intent: bye
+  - action: utter_bye
+- rule: ouvrir l'application demandée
+  steps:
+  - intent: open
+  - action: utter_open
+- rule: definir une alarme
+  steps:
+  - intent: alarm
+  - action: utter_alarm
+- rule: definir un itinéraire
+  steps:
+  - intent: plan
+  - action: utter_plan
+- rule: ouvrir l'application demandée
+  steps:
+  - intent: open
+  - action: utter_open
+- rule: effectuer une recherche
+  steps:
+  - intent: search
+  - action: utter_search
+- rule: jouer un album demandé
+  steps:
+  - intent: music
+  - action: utter_music
+- rule: faire du sport
+  steps:
+  - intent: sport
+  - action: utter_sport
+- rule: nlu_fallback
+  steps:
+  - or:
+    - intent: nlu_fallback
+    - intent: out_of_scope
+  - action: utter_nlu_fallback
+
+

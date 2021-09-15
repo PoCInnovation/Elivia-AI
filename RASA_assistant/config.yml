@@ -1,0 +1,39 @@
+language: fr
+pipeline:
+  - name: "SpacyNLP"
+    model: "fr_dep_news_trf"
+    case_sensitive: True
+  - name: "SpacyTokenizer"
+    intent_tokenization_flag: True
+    intent_split_symbol: "_"
+    token_pattern: None
+  - name: "SpacyFeaturizer"
+    pooling: "max"
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: word
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier
+    epochs: 100
+    constrain_similarities: True
+  - name: "EntitySynonymMapper"
+  - name: FallbackClassifier
+    threshold: 0.7
+    ambiguity_threshold: 0.1
+
+policies:
+  - name: TEDPolicy
+    epochs: 100
+    max_history: 8
+    split_entities_by_comma: True
+  - name: "RulePolicy"
+    core_fallback_threshold: 0.4
+    core_fallback_action_name: action_default_fallback
+    enable_fallback_prediction: true
+    restrict_rules: true
+    check_for_contradictions: true
+  - name: "MemoizationPolicy"
+    max_history: 3
